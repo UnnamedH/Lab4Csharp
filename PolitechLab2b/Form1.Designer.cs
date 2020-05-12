@@ -54,6 +54,8 @@
             this.numericUpDownY2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownX3 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownY3 = new System.Windows.Forms.NumericUpDown();
+            this.SaveData = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider3)).BeginInit();
@@ -247,11 +249,33 @@
             this.numericUpDownY3.Size = new System.Drawing.Size(120, 22);
             this.numericUpDownY3.TabIndex = 31;
             // 
+            // SaveData
+            // 
+            this.SaveData.Location = new System.Drawing.Point(392, 38);
+            this.SaveData.Name = "SaveData";
+            this.SaveData.Size = new System.Drawing.Size(91, 23);
+            this.SaveData.TabIndex = 32;
+            this.SaveData.Text = "SaveData";
+            this.SaveData.UseVisualStyleBackColor = true;
+            this.SaveData.Click += new System.EventHandler(this.SaveData_Click);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(804, 230);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(98, 21);
+            this.checkBox1.TabIndex = 33;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.SaveData);
             this.Controls.Add(this.numericUpDownY3);
             this.Controls.Add(this.numericUpDownX3);
             this.Controls.Add(this.numericUpDownY2);
@@ -317,6 +341,8 @@
         private System.Windows.Forms.NumericUpDown numericUpDownY3;
         private System.Windows.Forms.NumericUpDown numericUpDownX3;
         private System.Windows.Forms.NumericUpDown numericUpDownY2;
+        private System.Windows.Forms.Button SaveData;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

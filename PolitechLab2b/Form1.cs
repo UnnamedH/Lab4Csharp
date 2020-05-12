@@ -22,7 +22,7 @@ namespace PolitechLab2b
             numericUpDownY2.DecimalPlaces = 2;
             numericUpDownX3.DecimalPlaces = 2;
             numericUpDownY3.DecimalPlaces = 2;
-
+            loadData();
         }
 
         private void maskedTextBox1_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
@@ -31,18 +31,22 @@ namespace PolitechLab2b
         }
 
         private void button2_Click(object sender, EventArgs e)
+        { 
+            printResult(getTriangle());
+        }
+
+
+        private EqualSideTriangle getTriangle()
         {
-            
             double textBox1 = Double.Parse(numericUpDownX1.Text);
             double textBox2 = Double.Parse(numericUpDownY1.Text);
             double textBox3 = Double.Parse(numericUpDownX2.Text);
             double textBox4 = Double.Parse(numericUpDownY2.Text);
             double textBox5 = Double.Parse(numericUpDownX3.Text);
             double textBox6 = Double.Parse(numericUpDownY3.Text);
-            
+
             EqualSideTriangle triangle = new EqualSideTriangle(textBox1, textBox2, textBox3, textBox4, textBox5, textBox6);
-            
-            printResult(triangle);
+            return triangle; 
         }
 
         private void printResult(EqualSideTriangle triangle)
@@ -77,37 +81,58 @@ namespace PolitechLab2b
             return value.ToString("0.00");
         }
 
-     
-
-        /*private bool validateNumberField(object field, ErrorProvider errorProvider)
+        private void saveData(String filename,EqualSideTriangle triangle)
         {
-            MaskedTextBox maskedTextBox = field as MaskedTextBox;
-            if (maskedTextBox.TextLength == 0)
+
+            using (System.IO.BinaryWriter binaryWriter = new System.IO.BinaryWriter(new System.IO.FileStream(filename, System.IO.FileMode.OpenOrCreate)))
             {
-                errorProvider.SetError(maskedTextBox, "Field is empty!");
-                return false;
+                binaryWriter.Write(Double.Parse(numericUpDownX1.Text));
+                binaryWriter.Write(Double.Parse(numericUpDownY1.Text));
+                binaryWriter.Write(Double.Parse(numericUpDownX2.Text));
+                binaryWriter.Write(Double.Parse(numericUpDownY2.Text));
+                binaryWriter.Write(Double.Parse(numericUpDownX3.Text));
+                binaryWriter.Write(Double.Parse(numericUpDownY3.Text));
             }
-            else
-            {
            
-                return true;
-            }
         }
 
-        private bool validateAllNumberFields()
+        private void loadData()
         {
-            bool result = true;
+            var result = MessageBox.Show("Upload lastest data?","", MessageBoxButtons.YesNo);
+            if (result == System.Windows.Forms.DialogResult.Yes)
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.ShowDialog();
+                if (!openFileDialog.ShowDialog().Equals(DialogResult.OK))
+                {
+                    return;
+                }
+                string filename = openFileDialog.FileName;
+                using (System.IO.BinaryReader binaryReader = new System.IO.BinaryReader
+                    (new System.IO.FileStream(filename, System.IO.FileMode.Open)))
+                    {
+                        numericUpDownX1.Text = binaryReader.ReadDouble().ToString();
+                        numericUpDownY1.Text = binaryReader.ReadDouble().ToString();
+                        numericUpDownX2.Text = binaryReader.ReadDouble().ToString();
+                        numericUpDownY2.Text = binaryReader.ReadDouble().ToString();
+                        numericUpDownX3.Text = binaryReader.ReadDouble().ToString();
+                        numericUpDownY3.Text = binaryReader.ReadDouble().ToString();
+                    }
+            }
+           
             
-            result = result & validateNumberField(numericUpDownX1, errorProvider1);
-            result = result & validateNumberField(numericUpDownY1, errorProvider2);
-            result = result & validateNumberField(numericUpDownX2, errorProvider3);
-            result = result & validateNumberField(numericUpDownY2, errorProvider4);
-            result = result & validateNumberField(numericUpDownX3, errorProvider5);
-            result = result & validateNumberField(numericUpDownY3, errorProvider6);
+        }
 
-            return result;
-        }*/
-       
+        private void SaveData_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "txt files (*.txt)|*.txt|All files(*.*)|*.*";
+            if (!saveFileDialog.ShowDialog().Equals(DialogResult.OK)) { 
+                return; 
+            }
+            string filename = saveFileDialog.FileName;
+            saveData(filename, getTriangle());
+        }
     }
 
 
